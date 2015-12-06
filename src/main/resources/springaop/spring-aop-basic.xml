@@ -1,0 +1,94 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+
+<bean id="fooService" class="com.kevin.learning.spring.aop.entities.FooServiceImpl"></bean>
+
+
+  
+<bean id="beforeAdvice" class="com.kevin.learning.spring.aop.entities.AopMethodBeforeAdvice"/>
+<bean id="afterAdvice" class="com.kevin.learning.spring.aop.entities.AopAfterReturningAdvice"/>
+<bean id="aroundAdvice" class="com.kevin.learning.spring.aop.entities.AopAroundAdvice"/>
+
+<bean id="pointcut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+    <property name="mappedName" value="action"/>
+</bean>
+<bean id="beforeAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+    <property name="pointcut" ref="pointcut"/>
+    <property name="advice" ref="beforeAdvice"/>
+</bean>
+
+
+
+<bean id="afterAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor" >
+    <property name="pointcut" ref="pointcut"/>
+    <property name="advice" ref="afterAdvice"/>
+</bean>
+<bean id="aroundAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor" >
+    <property name="pointcut" ref="pointcut"/>
+    <property name="advice" ref="aroundAdvice"/>
+</bean>
+
+<bean id="fooProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+
+    <property name="target" ref="fooService"/>  
+<!--  	<property name="proxyInterfaces" >
+ 		<array>
+ 			<value>com.kevin.learning.spring.aop.entities.FooService</value>
+ 		</array>
+ 	</property> -->
+ 
+ <!-- 指定使用cglib -->
+<!--     <property name="proxyTargetClass">  
+      <value>true</value>  
+    </property> -->
+ 
+    <property name="interceptorNames">
+        <list>
+        
+        <!-- 既可以是advice，也可以是advisr，如果是advice就包装成advisor -->
+                 <value>beforeAdvice</value>
+            <value>afterAdvice</value>
+            <value>aroundAdvice</value>
+        
+          <!--   <value>beforeAdvisor</value>
+            <value>afterAdvisor</value>
+            <value>aroundAdvisor</value> -->
+        </list>
+    </property>
+</bean>
+
+	
+	
+	
+<!-- execution(* com.pay.base.service.*.*(..)) -->
+
+<!-- 	<aop:config>
+		<aop:pointcut id="accBaseMethod"
+			expression="execution(* com.pay.base.service..*(..))" />
+		<aop:advisor advice-ref="txBaseAccAdvice" pointcut-ref="accBaseMethod" />
+	</aop:config>
+
+	<tx:advice id="txBaseAccAdvice" transaction-manager="base-transactionManager">
+		<tx:attributes>
+		<tx:method name="*" propagation="SUPPORTS" rollback-for="AppException"
+        no-rollback-for="AppUnTxException" />
+      <tx:method name="*RnTx" propagation="REQUIRES_NEW"
+        rollback-for="AppException" no-rollback-for="AppUnTxException" />
+      <tx:method name="*SpTx" propagation="SUPPORTS"
+        rollback-for="AppException" no-rollback-for="AppUnTxException" />
+      <tx:method name="*NsTx" propagation="NOT_SUPPORTED" />
+      <tx:method name="*RdTx" propagation="REQUIRED" read-only="false"
+				rollback-for="com.pay.exception.AppException" />
+		</tx:attributes>
+	</tx:advice> -->
+
+</beans> 

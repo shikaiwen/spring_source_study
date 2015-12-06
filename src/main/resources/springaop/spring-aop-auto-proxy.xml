@@ -1,0 +1,53 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+
+<bean id="fooService" class="com.kevin.learning.spring.aop.entities.FooServiceImpl"></bean>
+
+
+  
+<bean id="beforeAdvice" class="com.kevin.learning.spring.aop.entities.AopMethodBeforeAdvice"/>
+<!-- <bean id="afterAdvice" class="com.kevin.learning.spring.aop.entities.AopAfterReturningAdvice"/>
+<bean id="aroundAdvice" class="com.kevin.learning.spring.aop.entities.AopAroundAdvice"/> -->
+
+<!-- <bean id="pointcut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+    <property name="mappedName" value="action"/>
+</bean>
+<bean id="beforeAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+    <property name="pointcut" ref="pointcut"/>
+    <property name="advice" ref="beforeAdvice"/>
+</bean> -->
+
+
+
+<!-- <bean id="afterAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor" >
+    <property name="pointcut" ref="pointcut"/>
+    <property name="advice" ref="afterAdvice"/>
+</bean>
+<bean id="aroundAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor" >
+    <property name="pointcut" ref="pointcut"/>
+    <property name="advice" ref="aroundAdvice"/>
+</bean> -->
+<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+	<bean id="myAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice" ref="beforeAdvice" />
+		<property name="patterns">
+			<list>
+			<value>com.kevin.learning.spring.aop.entities.*.action</value>
+				<!-- <value>com.hoo.rest.*RestService*\.*get.*</value> -->
+			</list>
+		</property>
+	</bean>	
+	
+	
+
+</beans> 
