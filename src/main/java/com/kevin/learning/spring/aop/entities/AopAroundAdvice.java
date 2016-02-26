@@ -5,7 +5,7 @@ import org.aopalliance.intercept.MethodInvocation;
 
 public class AopAroundAdvice implements MethodInterceptor{
 	public Object invoke(MethodInvocation invocation) throws Throwable {
-		System.out.println("invoke");
+		System.out.println("before invoke");
 		Object result = invocation.proceed();
 		System.out.println("after invoke ");
 		return result;

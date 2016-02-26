@@ -1,0 +1,12 @@
+mysql通过show engines查看有哪些存储引擎可以用，只有InnoB支持事务
+mysql 支持事务要通过 begin;语句，然后完成之后调用commit;否则每个命令就是一个事务，也可以通过
+set autocommit=0   禁止自动提交
+set autocommit=1 开启自动提交
+这样设置，但是不推荐
+
+手动处理多个数据源的事务：http://blog.csdn.net/u012345283/article/details/47059537
+http://my.oschina.net/guanzhenxing/blog/214228
+http://my.oschina.net/guanzhenxing/blog/213993
+http://lgbolgger.iteye.com/blog/2180251
+http://www.cnblogs.com/sxl525blogs/p/3674834.html	
+http://blog.csdn.net/xieyuooo/article/details/8473503

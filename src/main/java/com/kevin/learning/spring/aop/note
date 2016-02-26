@@ -1,0 +1,7 @@
+AOP实现原理分析：
+
+AOP代理通常是这样的
+首先使用自动代理DefaultAdvisorAutoProxyCreator，他是实现了BeanPostProcessor接口的，如果从容器中getBean，
+会调用这接口的方法，这个类会从容器中去搜索看有没有能拦截这个Bean的advisor，如果有就用这些Advisor封装为proxy，再
+返回，如果没有这里就不处理，直接返回了Bean
+

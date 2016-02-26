@@ -30,6 +30,7 @@ public class AopInterceptTest {
 	
 	static Logger logger = LoggerFactory.getLogger(AopInterceptTest.class);
 	
+	//这个是编程来实现AOP代理
 	@Test@Ignore
 	public void test1(){
 
@@ -37,7 +38,7 @@ public class AopInterceptTest {
 		pointcut.setMappedName("action");
 		
 		NameMatchMethodPointcut pointcut2 = new NameMatchMethodPointcut();
-		pointcut2.setMappedName("action4");
+		pointcut2.setMappedName("action");
 		
 		AopMethodBeforeAdvice before = new AopMethodBeforeAdvice();
 		AopAfterReturningAdvice after = new AopAfterReturningAdvice();
@@ -50,14 +51,14 @@ public class AopInterceptTest {
 		FooService fooService = new FooServiceImpl();
 		ProxyFactory factory = new ProxyFactory(fooService);
 		
-		//可以指定advisor的order值来指定顺序
+		//可以指定advisor的order值来指定顺序,如果有多个before就用order属性
 		factory.addAdvisors(new DefaultPointcutAdvisor[]{afterAdvisor,aroundAdvisor,beforeAdvisor});
 		FooService service = (FooService)factory.getProxy();
 		service.action();
 	}
 	
 	//手动的方式生成代理
-	@Test@Ignore
+	@Test
 	public void testSpringBasicAOP(){
 //		BasicConfigurator.configure();
 		try{
@@ -74,7 +75,7 @@ public class AopInterceptTest {
 	}
 	
 	//自动代理
-	@Test
+	@Test@Ignore
 	public void autoProxyTest(){
 		try{
 			ApplicationContext context =  new ClassPathXmlApplicationContext("springaop/spring-aop-auto-proxy.xml");

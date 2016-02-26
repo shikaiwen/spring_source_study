@@ -1,0 +1,2 @@
+DefaultBeanDefinitionReader在processBeanDefinition中用BeanDefinitionParserDelegate来解析bean的配置
+所有的bean配置都是hard-code的在processBeanDefinition

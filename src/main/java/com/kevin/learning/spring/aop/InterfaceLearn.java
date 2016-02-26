@@ -10,6 +10,7 @@ import org.springframework.aop.Pointcut;
 import org.springframework.aop.PointcutAdvisor;
 import org.springframework.aop.ThrowsAdvice;
 import org.springframework.aop.framework.ProxyConfig;
+import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.ComposablePointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.NameMatchMethodPointcut;
@@ -42,7 +43,7 @@ public class InterfaceLearn {
 	//代理对象
 //	org.springframework.aop.framework.JdkDynamicAopProxy jdkPorxy; 不可见
 	ProxyConfig proxyConfig;
-	
+	ProxyFactory factory;
 	
 	//BeanPostProcessor 
 	InstantiationAwareBeanPostProcessor bp;

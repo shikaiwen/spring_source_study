@@ -54,7 +54,8 @@
     <property name="interceptorNames">
         <list>
         
-        <!-- 既可以是advice，也可以是advisr，如果是advice就包装成advisor -->
+        <!-- 既可以是advice，也可以是advisor，如果是advice就包装成advisor,这里只指定
+        advice的话应该就是所有的方法都拦截,因为没有pointcut -->
                  <value>beforeAdvice</value>
             <value>afterAdvice</value>
             <value>aroundAdvice</value>
