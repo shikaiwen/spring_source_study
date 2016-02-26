@@ -23,6 +23,7 @@ public class MyAspect {
 	public void prepareWorkPointcut(){
 	}
 	
+	//表示这个advice要使用上面的pointcut
 	@Before("prepareWorkPointcut()")
 	public void beforeAdvice(){
 		System.out.println("get up from bed ");
