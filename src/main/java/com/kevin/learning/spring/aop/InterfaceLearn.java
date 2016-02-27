@@ -2,6 +2,7 @@ package com.kevin.learning.spring.aop;
 
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.BeforeAdvice;
 import org.springframework.aop.IntroductionAdvisor;
@@ -22,6 +23,8 @@ public class InterfaceLearn {
 	 * spring 中没有明确的 Aspect概念，而是用Advisor代替，advisor = advice(what to do )+ Pointcut(where to do )来表示的
 	 * 
 	 */
+	
+	ProceedingJoinPoint l;
 	
 	Pointcut pointcut;
 	NameMatchMethodPointcut namePointcut;

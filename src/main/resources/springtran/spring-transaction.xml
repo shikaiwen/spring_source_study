@@ -63,4 +63,28 @@
 </bean> -->
 
 
+<!-- 
+	支付项目使用示例
+	<aop:config>
+		<aop:pointcut id="accBaseMethod"
+			expression="execution(* com.pay.base.service..*(..))" />
+		<aop:advisor advice-ref="txBaseAccAdvice" pointcut-ref="accBaseMethod" />
+	</aop:config>
+
+	<tx:advice id="txBaseAccAdvice" transaction-manager="base-transactionManager">
+		<tx:attributes>
+		<tx:method name="*" propagation="SUPPORTS" rollback-for="AppException"
+        no-rollback-for="AppUnTxException" />
+      <tx:method name="*RnTx" propagation="REQUIRES_NEW"
+        rollback-for="AppException" no-rollback-for="AppUnTxException" />
+      <tx:method name="*SpTx" propagation="SUPPORTS"
+        rollback-for="AppException" no-rollback-for="AppUnTxException" />
+      <tx:method name="*NsTx" propagation="NOT_SUPPORTED" />
+      <tx:method name="*RdTx" propagation="REQUIRED" read-only="false"
+				rollback-for="com.pay.exception.AppException" />
+		</tx:attributes>
+	</tx:advice> -->
+	
+
+
 </beans> 
