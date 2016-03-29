@@ -14,6 +14,9 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBody
  * http://my.oschina.net/lichhao/blog/172562
  * @author Administrator
  *
+ *https://help.github.com/articles/generating-an-ssh-key/
+ *http://serverfault.com/questions/194567/how-do-i-tell-git-for-windows-where-to-find-my-private-rsa-key
+ *
  */
 public class HttpMessageConverTest {
 
