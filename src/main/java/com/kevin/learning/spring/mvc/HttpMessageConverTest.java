@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBody
 
 /**
  * http://www.cnblogs.com/fangjian0423/p/springMVC-xml-json-convert.html
+ * http://my.oschina.net/lichhao/blog/172562
  * @author Administrator
  *
  */
