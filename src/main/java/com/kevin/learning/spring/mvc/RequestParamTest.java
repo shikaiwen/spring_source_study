@@ -10,6 +10,7 @@ import org.springframework.web.servlet.HandlerMapping;
 /**
  * springMVC pattern使用 http://blog.csdn.net/kobejayandy/article/details/12690041
  * http://java2novice.com/spring-mvc/url-mapping-regex/
+ * http://stackoverflow.com/questions/7841770/optional-path-variables-in-spring-mvc-requestmapping-uritemplate
  * @author root
  *
  *
