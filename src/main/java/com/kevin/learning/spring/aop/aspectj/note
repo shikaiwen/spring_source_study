@@ -1,2 +1,4 @@
 文章参考地址:http://songuooo.com/2015/1/6/Spring-AOP-principle-third
 关于pointcut表达式的：http://blog.espenberntsen.net/2010/03/20/aspectj-cheat-sheet/
+
+关于Aspect的顺序以及参数指定 ： http://my.oschina.net/itblog/blog/211693
