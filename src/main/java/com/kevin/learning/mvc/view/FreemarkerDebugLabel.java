@@ -54,8 +54,6 @@ public class FreemarkerDebugLabel implements TemplateDirectiveModel {
 	
 	
 	public static void inspectObject(Object rootObj,int tabCount) throws Exception, IllegalAccessException{
-
-		
 		
 		Class c = rootObj.getClass();
 		Field [] fields = c.getDeclaredFields();

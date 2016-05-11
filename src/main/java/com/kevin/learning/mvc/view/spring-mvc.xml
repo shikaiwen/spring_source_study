@@ -14,6 +14,21 @@
 
 <bean id="controller" class="com.kevin.learning.mvc.view.ViewLearning"></bean>
 
+
+<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"/>
+<bean id="freemarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+	<property name="templateLoaderPaths" value="/views"></property>
+	<property name="freemarkerVariables">
+		<map>
+			<entry key="debugLabel" value-ref="debugLabel"></entry>
+			<!-- <entry key="ownDirective1" value-ref="ownDirective1"></entry> -->
+		</map>
+	</property>
+</bean>
+
+<bean id="debugLabel" class="com.kevin.learning.mvc.view.FreemarkerDebugLabel"></bean>
+<!-- <bean id="ownDirective1" class="com.kevin.learning.mvc.view.OwnDirective1"></bean> -->
+
 <!-- <bean id="beanProcessor" class="com.kevin.learning.spring.ioc.leftcycle.BeanPostProcessor1"></bean>
 <bean id="t1" class="com.kevin.learning.spring.ioc.leftcycle.T1"></bean>
 <bean id="t2" class="com.kevin.learning.spring.ioc.leftcycle.T2"></bean>
