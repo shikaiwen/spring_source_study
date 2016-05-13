@@ -11,8 +11,8 @@
            default-init-method="init" >
 
 <context:annotation-config /> 
-
-<bean id="controller" class="com.kevin.learning.mvc.view.ViewLearning"></bean>
+<context:component-scan base-package="com.kevin"></context:component-scan>
+<!-- <bean id="controller" class="com.kevin.learning.mvc.view.ViewLearning"></bean> -->
 
 <!-- <bean id="beanProcessor" class="com.kevin.learning.spring.ioc.leftcycle.BeanPostProcessor1"></bean>
 <bean id="t1" class="com.kevin.learning.spring.ioc.leftcycle.T1"></bean>
@@ -20,5 +20,48 @@
 <aop:config>
 	<aop:aspect id="t4m" ref="t54"></aop:aspect>
 </aop:config> -->
+
+
+	<!-- 配置freeMarker的模板路径 com.fang.framework.component.freemarker.MyFreeMarkerConfigurer -->
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/"/>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">5</prop>
+				<prop key="url_escaping_charset">UTF-8</prop>
+				<prop key="default_encoding">UTF-8</prop>
+				<prop key="output_encoding">UTF-8</prop>
+				<prop key="locale">zh_CN</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="time_format">HH:mm:ss</prop>
+				<prop key="number_format">##.##</prop>
+				<prop key="template_exception_handler">ignore</prop>
+				<prop key="classic_compatible">true</prop>
+				<prop key="whitespace_stripping">true</prop>
+			</props>
+		</property>
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="kdebug" value-ref="kdebug"></entry>
+			</map>
+		</property>
+	</bean>
+
+<bean id="kdebug" class="com.kevin.learning.mvc.view.KDebug"></bean>
+
+	<!-- 适配视图配置 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+		<property name="suffix" value=".jsp"/>
+		<property name="contentType" value="text/html;charset=UTF-8"/>
+		<property name="exposeRequestAttributes" value="true"/>
+		<property name="exposeSessionAttributes" value="true"/>
+		<property name="exposeSpringMacroHelpers" value="true"/>
+		<property name="requestContextAttribute" value="request"/>
+	</bean>
+
+
+
 
 </beans> 

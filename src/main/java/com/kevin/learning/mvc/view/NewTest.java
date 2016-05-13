@@ -19,10 +19,9 @@ public class NewTest {
 		
 		User user = new User(20,"kkk");
 		List list  =  new ArrayList();
-		list.add(0543);
-		list.add(6, 8888);
 		
 		list.add(new User(50,"bbbb"));
+		list.add(1000);
 		
 		user.setObj( list );
 		
@@ -114,6 +113,12 @@ public class NewTest {
 			JSONArray jArr = new JSONArray();
 			((JSONObject) root ).put("children", jArr  );
 			
+			
+			
+			
+			
+			
+			
 			for(int i =0; i < fields.length;i++){
 				
 				Field f = fields[i];
@@ -151,42 +156,47 @@ public class NewTest {
 					listJsonObj.put("children", listChildrenArr);
 					
 					Field sF = obj.getClass().getDeclaredField("size");
-					sF.get(obj);
+					int listSize = (Integer)sF.get(fieldVal);
+					
+					// list的大小
+					JSONObject sizeObj = new JSONObject();
+					sizeObj.put("name",  listSize );
 					
 					List list = (List)fieldVal;
 					
 					
 					
 					for(int listi=0;listi<list.size();listi++){
-						Object objs = list.get(listi);
+						Object listVal = list.get(listi);
 						
-						
-						if(isSimpleType(objs)){
+						if( isNull(listVal)  ){
+							JSONObject nullObj = new JSONObject();
+							nullObj.put( "name",  "["+listi+"]=null" );
 							
-							JSONObject jObj = new JSONObject();
-							
-							if( isNull(objs)  ){
-								jObj.put( "name",  "["+listi+"]=null" );
-								
-								listChildrenArr.add(jObj);
-							}
-							
-							if(isSimpleType(objs)){
-								
-								jObj.put("name",  fieldVal + "<"+ objs.getClass().getSimpleName() + ">");
-								
-								listChildrenArr.add(jObj);
-								
-							}
-							
-							
+							listChildrenArr.add(nullObj);
+							continue;
 						}
+						
+						if(isSimpleType(listVal)){
+							JSONObject simpleObj = new JSONObject();
+							simpleObj.put("name",  fieldVal + "<"+ listVal.getClass().getSimpleName() + ">");
+							listChildrenArr.add(simpleObj);
+							continue;
+						}
+						
+						JSONObject complexObj = new JSONObject();
+						complexObj.put("name",   "[" + listi +"]=" +  listVal.getClass().getSimpleName());
+						
+						JSONArray listObjChildren = new JSONArray();
+						
+						complexObj.put("children", listObjChildren);
+						
+						handleRecursive(complexObj,listObjChildren);
 						
 					}
 					
-					
-					
 				}
+				
 				
 				handleRecursive(fieldVal,jArr);
 				
@@ -212,34 +222,3 @@ public class NewTest {
 
 
 
-class User{
-	
-	public Object getObj() {
-		return obj;
-	}
-	public void setObj(Object obj) {
-		this.obj = obj;
-	}
-	private Object obj;
-	
-	public User(int age, String name) {
-		super();
-		this.age = age;
-		this.name = name;
-	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	private int age;
-	private String name;
-	
-}
