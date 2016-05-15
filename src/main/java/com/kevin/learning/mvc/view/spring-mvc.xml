@@ -27,6 +27,10 @@
 </bean>
 
 <bean id="debugLabel" class="com.kevin.learning.mvc.view.FreemarkerDebugLabel"></bean>
+
+
+
+
 <!-- <bean id="ownDirective1" class="com.kevin.learning.mvc.view.OwnDirective1"></bean> -->
 
 <!-- <bean id="beanProcessor" class="com.kevin.learning.spring.ioc.leftcycle.BeanPostProcessor1"></bean>

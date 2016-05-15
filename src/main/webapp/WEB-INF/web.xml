@@ -23,8 +23,33 @@
   
   <servlet-mapping>
   	<servlet-name>dispatcherServlet</servlet-name>
-  	<url-pattern>/*</url-pattern>
+  	<url-pattern>/</url-pattern>
   </servlet-mapping>
+  
+    <servlet>  
+        <servlet-name>wsHello</servlet-name>  
+        <servlet-class>com.kevin.learning.mvc.view.HelloWebSocket</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+        <servlet-name>wsHello</servlet-name>  
+        <url-pattern>/websocket/say</url-pattern>  
+    </servlet-mapping>  
+  
+      <servlet>  
+        <servlet-name>notifyServlet</servlet-name>  
+        <servlet-class>com.kevin.learning.mvc.view.RequestHandlerServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+        <servlet-name>notifyServlet</servlet-name>  
+        <url-pattern>/notify</url-pattern>  
+    </servlet-mapping>  
+  
+  
+  <servlet-mapping><servlet-name>default</servlet-name><url-pattern>*.css</url-pattern></servlet-mapping>
+  <servlet-mapping><servlet-name>default</servlet-name><url-pattern>*.js</url-pattern></servlet-mapping>
+  	
+  	
+  
   
 </web-app>
 
