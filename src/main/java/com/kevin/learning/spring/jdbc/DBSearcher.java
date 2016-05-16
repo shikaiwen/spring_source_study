@@ -9,8 +9,10 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.naming.directory.SearchControls;
 
@@ -45,6 +47,21 @@ public class DBSearcher {
 	
 	static Connection rootConn = null;
 	static DBInfo currentDBInfo = null;
+	
+	
+	public static void showHelpInfo(){
+		String str = "使用方法：\n"
+				+ "-t:查询某个表名称 (精确查找)\n"
+				+ "-tt:查询某个表名称(模糊查找)\n"
+				+ "-c:查找列名(精确匹配)\n"
+				+ "-cc:查找列名(模糊匹配)\n"
+				+ "-db:查询数据库,1:开发环境  2:测试环境 ( 如果不传，则两个都查)\n"
+				+ "使用示例：java DBSearcher.jar -t t_user \n"
+				+ "\t java DBSearcher.jar -c email\n";
+		
+		System.out.println(str);
+	}
+	
 	/**
 	 * 默认查询两个库
 	 * db=1：开发库  db=2：测试库，如不传则查两个
@@ -55,44 +72,68 @@ public class DBSearcher {
 	 */
 	public static void main(String[] args) throws Throwable {
 		
-		DBInfo[] dbInfArr = DBInfo.values();
+//		showHelpInfo();
+//		if(true)return;
 		
-		for(int i=0;i<dbInfArr.length;i++){
-			DBInfo info = dbInfArr[i];
-			currentDBInfo = info;
-			String url = "jdbc:mysql://"+info.getHost()+":" + info.getPort();
-			Connection conn = getConn(url, info.getUsername(), info.getPassword());
-			if(conn == null) return;
-			rootConn = conn;
-			
-			System.out.println("SEARCH DBS ON HOST " + currentDBInfo.getHost() + ",PORT: " + currentDBInfo.getPort());
-			
-			for(int j=0;j<args.length;j++){
-				
-				String opt = args[j];
-				if("-t".equals(opt)){
-					String tbname = args[j+1];
-					searchTable(tbname);
-				}
-				
-				if("-tt".equals(opt)){
-					String tbname = args[j+1];
-					searchTable(tbname, true);
-				}
-				
-				if("-c".equals(opt)){
-					String colname = args[j+1];
-					searchCol(colname);
-				}
-				
-				if("-cc".equals(opt)){
-					String colname = args[j+1];
-					searchCol(colname, true);
-				}
-				
-				
-			}
+		List<String> argsList = Arrays.asList(args);
+		
+		if(argsList.contains("-h") || argsList.contains("-help")){
+			showHelpInfo();
 		}
+		
+		try{
+			
+			DBInfo[] dbInfArr = DBInfo.values();
+			
+			for(int i=0;i<dbInfArr.length;i++){
+				DBInfo info = dbInfArr[i];
+				
+				if(argsList.contains("-db")){
+					
+					String dbVal = argsList.get( argsList.indexOf("-db")+1 );
+					
+					int dbIndex = Integer.parseInt(dbVal);
+					
+					if(dbIndex != i+1) continue;
+				}
+				
+				currentDBInfo = info;
+				String url = "jdbc:mysql://"+info.getHost()+":" + info.getPort();
+				Connection conn = getConn(url, info.getUsername(), info.getPassword());
+				if(conn == null) return;
+				rootConn = conn;
+				
+				System.out.println("SEARCH ON HOST " + currentDBInfo.getHost() + ",PORT: " + currentDBInfo.getPort());
+				
+				for(int j=0;j<args.length;j++){
+					
+					String opt = args[j];
+					if("-t".equals(opt)){
+						String tbname = args[j+1];
+						searchTable(tbname);
+					}
+					
+					if("-tt".equals(opt)){
+						String tbname = args[j+1];
+						searchTable(tbname, true);
+					}
+					
+					if("-c".equals(opt)){
+						String colname = args[j+1];
+						searchCol(colname);
+					}
+					
+					if("-cc".equals(opt)){
+						String colname = args[j+1];
+						searchCol(colname, true);
+					}
+				}
+			}
+			
+		}catch(Exception e){
+			showHelpInfo();
+		}
+		
 	}
 	
 	
@@ -274,7 +315,6 @@ public class DBSearcher {
 		}
 		
 		return null;
-		
 		
 	}
 
